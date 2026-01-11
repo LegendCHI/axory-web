@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AXORY — Digital Studio</title>
+  <meta name="description" content="AXORY es un estudio creativo digital especializado en diseño, desarrollo web y soluciones digitales modernas." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --card: #111520;
+      --primary: #5f91ff;
+      --secondary: #7c4dff;
+      --text: #ffffff;
+      --muted: #b3b8d0;
+      --neon: 0 0 12px rgba(95,145,255,0.6), 0 0 24px rgba(124,77,255,0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: transparent;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,14,20,.55);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+    }
+
+    header img {
+      height: 46px;
+      max-width: 190px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      header img {
+        height: 38px;
+        max-width: 160px;
+      }
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 0.9rem;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.45);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      padding: 0 20px;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .hero h2 {
+      font-size: 3.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      text-shadow: var(--neon);
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+
+    .hero .actions {
+      margin-top: 36px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 34px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: var(--neon);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(124,77,255,.7); }
+
+    section { padding: 120px 60px; position: relative; z-index: 2; }
+
+    .section-title {
+      font-size: 2.2rem;
+      margin-bottom: 46px;
+      text-align: center;
+      text-shadow: var(--neon);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--card);
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.4);
+      transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
+      border: 1px solid transparent;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      border: 1px solid rgba(95,145,255,.6);
+      box-shadow: 0 0 30px rgba(95,145,255,.25);
+    }
+
+    .card:hover { transform: translateY(-6px); }
+
+    .card h3 { margin-bottom: 12px; }
+    .card p { color: var(--muted); font-size: .95rem; }
+
+    .contact { text-align: center; }
+
+    .discord-btn {
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 32px;
+      border-radius: 12px;
+      background: #5865F2;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 0 20px rgba(88,101,242,.6);
+    }
+
+    .discord-btn img { height: 26px; }
+
+    footer { text-align: center; padding: 26px; font-size: .8rem; color: var(--muted); }
+
+    .discord-counter {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      z-index: 3;
+      background: rgba(17,21,32,0.75);
+      backdrop-filter: blur(10px);
+      padding: 14px 20px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 25px rgba(88,101,242,0.4);
+      font-size: 0.9rem;
+    }
+
+    .discord-counter .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #43ff9b;
+      box-shadow: 0 0 10px #43ff9b;
+    }
+
+    .discord-counter strong { font-size: 1.1rem; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all .8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 20px; }
+      section { padding: 70px 24px; }
+      .hero h2 { font-size: 2.6rem; }
+    }
+  .news-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .news-img { height: 160px; }
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="AXORY Logo">
+  <nav>
+    <a href="#projects">Proyectos</a>
+    <a href="#contact">Contacto</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" style="background: transparent;">
+  <!-- Discord Counter Overlay -->
+  <div class="discord-counter reveal">
+    <span class="dot"></span>
+    <strong id="discordCount">Cargando...</strong>
+    <small>miembros en Discord</small>
+  </div>
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="background.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <h2 class="reveal">Axory Digital Studio</h2>
+    <p class="reveal">AXORY es un estudio creativo digital donde combinamos diseño, desarrollo web y soluciones visuales para dar vida a ideas reales.</p>
+    <div class="actions reveal">
+      <a class="btn scroll" href="#projects">Proyectos</a>
+      <a class="btn" href="https://discord.gg/Uz6NBMthck" target="_blank">Unirse a Discord</a>
+    </div>
+  </div>
+</section>
+
+<section id="news" class="section">
+  <h2 class="reveal">Novedades</h2>
+  <div class="grid">
+    <div class="card reveal">
+      <img src="npcspawn.png" alt="NPC Spawn Update" class="news-img" />
+      <h3>Actualización NPC Spawn</h3>
+      <p>Mejoramos el sistema de NPCSpawn en Nova State Roleplay, optimizando rendimiento, rutas y comportamiento dinámico.</p>
+      <span class="tag">Nova State RP</span>
+    </div>
+    <div class="card reveal">
+      <h3>Sistema de Whitelist v2</h3>
+      <p>Nueva versión del sistema de postulación con validaciones automáticas y panel staff mejorado.</p>
+      <span class="tag">AXORY Systems</span>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+    <h2 class="section-title">Proyectos</h2>
+    <div class="grid">
+  <div class="card project" data-project="rp">
+    <h3>Nova State Roleplay</h3>
+    <p>Desarrollo web y sistemas avanzados para servidor de rol.</p>
+  </div>
+  <div class="card project" data-project="ui">
+    <h3>Interfaces & UI</h3>
+    <p>Diseño de GUI, paneles y experiencias visuales para comunidades.</p>
+  </div>
+  <div class="card project" data-project="tools">
+    <h3>Scripts & Tools</h3>
+    <p>Herramientas, automatizaciones y scripts personalizados.</p>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div id="modal-body"></div>
+  </div>
+</div>
+      <div class="card"><h3>Web Projects</h3><p>Landing pages, sitios web y dashboards creados con enfoque moderno y funcional.</p></div>
+      <div class="card"><h3>Scripts & Tools</h3><p>Herramientas, automatizaciones y scripts personalizados para servidores y sistemas.</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <h2 class="section-title">Contacto</h2>
+    <p>¿Quieres trabajar con AXORY o tienes una idea en mente?</p>
+    <a class="discord-btn" href="https://discord.gg/Uz6NBMthck" target="_blank">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAmVBMVEVWYvb///89Tva+wPZVYfZPXPZRXvb6+v9OW/b8/P9LWfbs7f5GVfbw8f5EU/ZJV/b39/7V2PxAUPbS1Pzk5f2KkfiEjPhaZvY4Svbn6P3c3v1wevfMz/xsdvdlcPd5gviUmvl+h/iaoPm1ufq4vPuus/rEx/tga/enrPqrsPqSmfkzRvagpfp1fviOlPgtQvUdOPURMPUkPfWdRSg+AAALIUlEQVR4nO2daXebsBKGMRFiM7sxGGNsMN4SL735/z/u4iRu0wSGESbFulfvl57TVkiPtY1GI0l6kqX/cQlC/iUI+Zcg5F+CkH8JQv4lCPmXIORfgpB/CUL+JQj5lyDkX4KQfwlC/iUI+Zcg5F+CkH8JQv4lCPmXIORfgpB/CUL+JQj5lyDkX4KQfwlC7vVfn7fPvRKvMsoAAAAASUVORK5CYII=" alt="Discord">Unirse al Discord
+    </a>
+  </section>
+</main>
+
+<footer>
+  © 2026 AXORY Digital Studio. Todos los derechos reservados.
+</footer>
+
+<script>
+// reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){ entry.target.classList.add('active'); }
+  });
+},{threshold:0.2});
+reveals.forEach(r=>observer.observe(r));
+
+// modal projects
+const data = {
+  rp: `<h2>Nova State Roleplay</h2><p>Proyecto integral para un servidor de rol serio. AXORY desarrolló la página web oficial, sistema de postulación, panel administrativo, diseño de identidad visual y automatizaciones conectadas a Discord y base de datos.</p><ul><li>Web oficial optimizada</li><li>Sistema de whitelist</li><li>Panel staff</li><li>Diseño UI personalizado</li></ul>`,
+  ui: `<h2>Interfaces & UI</h2><p>Diseños modernos enfocados en usabilidad y estética premium.</p>`,
+  tools: `<h2>Scripts & Tools</h2><p>Sistemas a medida para comunidades digitales y servidores.</p>`
+};
+
+const modal = document.getElementById('modal');
+const body = document.getElementById('modal-body');
+document.querySelectorAll('.project').forEach(card=>{
+  card.onclick = ()=>{ body.innerHTML = data[card.dataset.project]; modal.classList.add('show'); };
+});
+document.querySelector('.close').onclick = ()=> modal.classList.remove('show');
+// Discord counter
+fetch('https://discord.com/api/guilds/123456789012345678/widget.json')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById('discordCount').innerText = data.presence_count;
+  })
+  .catch(() => {
+    document.getElementById('discordCount').innerText = '—';
+  });
+
+// smooth scroll
+const links = document.querySelectorAll('a.scroll');
+links.forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior:'smooth'});
+  });
+});
+
+</script>
+</body>
+</html>
